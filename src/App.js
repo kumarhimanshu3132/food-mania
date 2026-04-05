@@ -1,24 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Admin from "./screens/Admin.js";
+import Home from "./screens/Home";
+import Login from "./screens/Login";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import '../node_modules/bootstrap-dark-5/dist/css/bootstrap-dark.min.css';
+import '../node_modules/bootstrap/dist/js/bootstrap.bundle';
+import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
+import Signup from "./screens/Signup";
+import { CartProvider } from "./components/ContextReducer.js";
+import { Toaster } from 'react-hot-toast'; // ✨ NEW IMPORT
+import MyOrder from "./screens/MyOrder.js";
+import Cart from "./screens/Cart";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CartProvider>  
+      <Router>
+        <div>
+          <Toaster 
+            position="top-center" 
+            toastOptions={{ 
+              success: { style: { background: '#198754', color: 'white' } }, // Premium Green theme
+              error: { style: { background: '#dc3545', color: 'white' } } // Premium Red theme
+            }} 
+          />
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route exact path="/login" element={<Login />} />
+            <Route exact path="/createuser" element={<Signup />} />
+            <Route exact path="/myOrder" element={<MyOrder />} />
+            <Route exact path="/mycart" element={<Cart />} />
+            <Route exact path="/admin" element={<Admin />} />
+          </Routes>
+        </div>
+      </Router>
+    </CartProvider>
   );
 }
 
