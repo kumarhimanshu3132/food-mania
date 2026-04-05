@@ -9,7 +9,6 @@ export default function Signup() {
     geolocation: "",
   });
 
-  
   let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -22,18 +21,21 @@ export default function Signup() {
         location: credentials.geolocation,
       }),
     );
-    const response = await fetch("http://localhost:5000/api/createuser", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      "https://food-mania-6a4q.onrender.com/api/createuser",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: credentials.name,
+          email: credentials.email,
+          password: credentials.password,
+          location: credentials.geolocation,
+        }),
       },
-      body: JSON.stringify({
-        name: credentials.name,
-        email: credentials.email,
-        password: credentials.password,
-        location: credentials.geolocation,
-      }),
-    });
+    );
     const json = await response.json();
     console.log(json);
 
@@ -41,7 +43,7 @@ export default function Signup() {
       alert("Enter valid credentials");
     } else {
       alert("Account created successfully, Please Login Now");
-      navigate("/login"); 
+      navigate("/login");
     }
   };
 

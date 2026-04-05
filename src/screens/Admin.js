@@ -21,10 +21,13 @@ export default function Admin() {
 
   // Function to fetch existing categories from backend
   const loadCategories = async () => {
-    let response = await fetch("http://localhost:5000/api/getcategories", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-    });
+    let response = await fetch(
+      "https://food-mania-6a4q.onrender.com/api/getcategories",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      },
+    );
     response = await response.json();
     if (response.success) {
       setCategories(response.data);
@@ -39,21 +42,24 @@ export default function Admin() {
   // Function to handle adding a Food Item
   const handleFoodSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:5000/api/addfood", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: food.name,
-        CategoryName: food.CategoryName,
-        img: food.img,
-        description: food.description,
-        // Automatically creating the options object for half/full
-        options: {
-          half: food.price,
-          full: (parseInt(food.price) * 1.5).toString(),
-        },
-      }),
-    });
+    const response = await fetch(
+      "https://food-mania-6a4q.onrender.com/api/addfood",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: food.name,
+          CategoryName: food.CategoryName,
+          img: food.img,
+          description: food.description,
+          // Automatically creating the options object for half/full
+          options: {
+            half: food.price,
+            full: (parseInt(food.price) * 1.5).toString(),
+          },
+        }),
+      },
+    );
     const json = await response.json();
     if (json.success) {
       toast.success(`${food.name} Added to Menu!`);
@@ -72,11 +78,14 @@ export default function Admin() {
   // Function to handle adding a new Category
   const handleCategorySubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:5000/api/addcategory", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ CategoryName: newCategory }),
-    });
+    const response = await fetch(
+      "https://food-mania-6a4q.onrender.com/api/addcategory",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ CategoryName: newCategory }),
+      },
+    );
     const json = await response.json();
     if (json.success) {
       toast.success(`Category "${newCategory}" created!`);
@@ -134,7 +143,7 @@ export default function Admin() {
                   type="submit"
                   className="btn btn-info w-100 fw-bold shadow-lg text-dark"
                 >
-                 +Create Category
+                  +Create Category
                 </button>
               </form>
             </div>

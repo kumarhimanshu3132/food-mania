@@ -5,18 +5,21 @@ import Card from "../components/Card";
 
 export default function Home() {
   const [search, setSearch] = useState("");
-  const [typeFilter, setTypeFilter] = useState("All"); 
+  const [typeFilter, setTypeFilter] = useState("All");
   const [foodCat, setFoodCat] = useState([]);
   const [foodItem, setFoodItem] = useState([]);
   const [expandedCategories, setExpandedCategories] = useState([]);
 
   const loadData = async () => {
-    let response = await fetch("http://localhost:5000/api/foodData", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    let response = await fetch(
+      "https://food-mania-6a4q.onrender.com/api/foodData",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    });
+    );
     response = await response.json();
 
     setFoodItem(response[0]);
@@ -29,7 +32,9 @@ export default function Home() {
 
   const toggleCategory = (categoryName) => {
     if (expandedCategories.includes(categoryName)) {
-      setExpandedCategories(expandedCategories.filter(cat => cat !== categoryName));
+      setExpandedCategories(
+        expandedCategories.filter((cat) => cat !== categoryName),
+      );
     } else {
       setExpandedCategories([...expandedCategories, categoryName]);
     }
@@ -52,23 +57,35 @@ export default function Home() {
               <img
                 src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=900&h=700&fit=crop"
                 className="d-block w-100"
-                style={{ filter: "brightness(40%)", height: "500px", objectFit: "cover" }}
+                style={{
+                  filter: "brightness(40%)",
+                  height: "500px",
+                  objectFit: "cover",
+                }}
                 alt="Delicious Veg Pizza"
               />
             </div>
             <div className="carousel-item">
               <img
-                 src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=900&h=700&fit=crop"
+                src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=900&h=700&fit=crop"
                 className="d-block w-100"
-                 style={{ filter: "brightness(40%)", height: "500px", objectFit: "cover" }}
+                style={{
+                  filter: "brightness(40%)",
+                  height: "500px",
+                  objectFit: "cover",
+                }}
                 alt="Indian Veg Curry"
               />
             </div>
             <div className="carousel-item">
               <img
-                 src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=900&h=700&fit=crop"
+                src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=900&h=700&fit=crop"
                 className="d-block w-100"
-                 style={{ filter: "brightness(40%)", height: "500px", objectFit: "cover" }}
+                style={{
+                  filter: "brightness(40%)",
+                  height: "500px",
+                  objectFit: "cover",
+                }}
                 alt="Premium Sweets"
               />
             </div>
@@ -79,7 +96,10 @@ export default function Home() {
             data-bs-target="#carouselExampleFade"
             data-bs-slide="prev"
           >
-            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span
+              className="carousel-control-prev-icon"
+              aria-hidden="true"
+            ></span>
             <span className="visually-hidden">Previous</span>
           </button>
           <button
@@ -88,17 +108,19 @@ export default function Home() {
             data-bs-target="#carouselExampleFade"
             data-bs-slide="next"
           >
-            <span className="carousel-control-next-icon" aria-hidden="true"></span>
+            <span
+              className="carousel-control-next-icon"
+              aria-hidden="true"
+            ></span>
             <span className="visually-hidden">Next</span>
           </button>
         </div>
       </div>
-      <div 
-        className="sticky-top bg-dark py-3 shadow-lg" 
+      <div
+        className="sticky-top bg-dark py-3 shadow-lg"
         style={{ zIndex: "1020", borderBottom: "1px solid #333" }}
       >
         <div className="container d-flex flex-column flex-md-row justify-content-between align-items-center">
-          
           <input
             className="form-control me-md-4 mb-3 mb-md-0 shadow-sm"
             type="search"
@@ -112,27 +134,26 @@ export default function Home() {
           <div className="btn-group shadow-sm" role="group">
             <button
               type="button"
-              className={`btn ${typeFilter === 'All' ? 'btn-success' : 'btn-outline-success'}`}
-              onClick={() => setTypeFilter('All')}
+              className={`btn ${typeFilter === "All" ? "btn-success" : "btn-outline-success"}`}
+              onClick={() => setTypeFilter("All")}
             >
               All Items
             </button>
             <button
               type="button"
-              className={`btn ${typeFilter === 'Veg' ? 'btn-success' : 'btn-outline-success'}`}
-              onClick={() => setTypeFilter('Veg')}
+              className={`btn ${typeFilter === "Veg" ? "btn-success" : "btn-outline-success"}`}
+              onClick={() => setTypeFilter("Veg")}
             >
               Pure Veg 🟩
             </button>
             <button
               type="button"
-              className={`btn ${typeFilter === 'Non-Veg' ? 'btn-danger' : 'btn-outline-danger'}`}
-              onClick={() => setTypeFilter('Non-Veg')}
+              className={`btn ${typeFilter === "Non-Veg" ? "btn-danger" : "btn-outline-danger"}`}
+              onClick={() => setTypeFilter("Non-Veg")}
             >
               Non-Veg 🟥
             </button>
           </div>
-
         </div>
       </div>
 
@@ -142,35 +163,38 @@ export default function Home() {
               // 3. Pehle hum saare items filter kar lete hain
               const filteredItems = foodItem.filter((item) => {
                 const matchCategory = item.CategoryName === data.CategoryName;
-                const matchSearch = item.name.toLowerCase().includes(search.toLowerCase());
-                
-                const isNonVeg = item.name.toLowerCase().includes("chicken") || 
-                                 item.name.toLowerCase().includes("fish") || 
-                                 item.name.toLowerCase().includes("prawn") || 
-                                 item.name.toLowerCase().includes("mutton");
-                
+                const matchSearch = item.name
+                  .toLowerCase()
+                  .includes(search.toLowerCase());
+
+                const isNonVeg =
+                  item.name.toLowerCase().includes("chicken") ||
+                  item.name.toLowerCase().includes("fish") ||
+                  item.name.toLowerCase().includes("prawn") ||
+                  item.name.toLowerCase().includes("mutton");
+
                 const itemType = isNonVeg ? "Non-Veg" : "Veg";
-                const matchType = typeFilter === "All" || typeFilter === itemType;
+                const matchType =
+                  typeFilter === "All" || typeFilter === itemType;
 
                 return matchCategory && matchSearch && matchType;
               });
 
-             
               const isExpanded = expandedCategories.includes(data.CategoryName);
-              
-              
-              const itemsToDisplay = isExpanded ? filteredItems : filteredItems.slice(0, 4);
+
+              const itemsToDisplay = isExpanded
+                ? filteredItems
+                : filteredItems.slice(0, 4);
 
               return (
                 <div className="row mb-3" key={data._id}>
                   {/* Category Name aur View All button ko ek line mein laane ke liye flexbox */}
                   <div className="d-flex justify-content-between align-items-center m-3">
                     <div className="fs-3">{data.CategoryName}</div>
-                    
-                    
+
                     {filteredItems.length > 4 && (
-                      <button 
-                        className="btn btn-outline-success btn-sm" 
+                      <button
+                        className="btn btn-outline-success btn-sm"
                         onClick={() => toggleCategory(data.CategoryName)}
                       >
                         {isExpanded ? "Show Less" : "View All"}
@@ -178,22 +202,24 @@ export default function Home() {
                     )}
                   </div>
                   <hr />
-                  
-                  {itemsToDisplay.length !== 0
-                    ? itemsToDisplay.map((filterItems) => {
-                        return (
-                          <div
-                            key={filterItems._id}
-                            className="col-12 col-md-6 col-lg-3"
-                          >
-                            <Card
-                              foodItem={filterItems}
-                              options={filterItems.options[0]}
-                            />
-                          </div>
-                        );
-                      })
-                    : <div> No such data found </div>}
+
+                  {itemsToDisplay.length !== 0 ? (
+                    itemsToDisplay.map((filterItems) => {
+                      return (
+                        <div
+                          key={filterItems._id}
+                          className="col-12 col-md-6 col-lg-3"
+                        >
+                          <Card
+                            foodItem={filterItems}
+                            options={filterItems.options[0]}
+                          />
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div> No such data found </div>
+                  )}
                 </div>
               );
             })

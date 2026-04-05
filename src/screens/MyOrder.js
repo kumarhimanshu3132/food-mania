@@ -7,11 +7,14 @@ export default function MyOrder() {
 
   const fetchMyOrder = async () => {
     let userEmail = localStorage.getItem("userEmail");
-    const response = await fetch("http://localhost:5000/api/myOrderData", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: userEmail }),
-    });
+    const response = await fetch(
+      "https://food-mania-6a4q.onrender.com/api/myOrderData",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: userEmail }),
+      },
+    );
     const json = await response.json();
     setorderData(json);
   };
@@ -85,7 +88,6 @@ export default function MyOrder() {
                               </div>
                             </div>
 
-                            
                             <div className="text-end">
                               <div className="fw-bold fs-4 text-white">
                                 ₹{item.price}/-
